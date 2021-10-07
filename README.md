@@ -25,5 +25,5 @@ Here's a walkthrough of implemented user stories:
 
 <img src='https://im3.ezgif.com/tmp/ezgif-3-3d5ec1750dff.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 <img src='https://im3.ezgif.com/tmp/ezgif-3-ce4e3a44de5d.gif' title='Video Walkthrough' width='' alt='Video Walkthrough2' />
-<img src='https://im3.ezgif.com/tmp/ezgif-3-10b50f23e187.gif' title='Video Walkthrough' width='' alt='Video Walkthrough3' />
+<img src='https://im3.ezgif.com/tmp/ezgif-3-e39d6a1bb96c.gif' title='Video Walkthrough' width='' alt='Video Walkthrough3' />
 
