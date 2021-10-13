@@ -16,14 +16,22 @@ class HomeTableTableViewController: UITableViewController {
     
     let myRefreshControl = UIRefreshControl()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        loadTweet()
-        myRefreshControl.addTarget(self, action: #selector(loadTweet), for: .valueChanged)
-        
-        tableView.refreshControl = myRefreshControl
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.loadTweet()
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        numberOfTweet = 20
+        myRefreshControl.addTarget(self, action: #selector(loadTweet), for: .valueChanged)
+        self.tableView.refreshControl = myRefreshControl
+        loadTweet()
+    }
+    
+    @IBAction func logout(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     @IBAction func onLogon(_ sender: Any) {
         TwitterAPICaller.client?.logout()
         self.dismiss(animated: true, completion: nil)
@@ -55,14 +63,15 @@ class HomeTableTableViewController: UITableViewController {
                 cell.ProfileImageView.image = UIImage(data: imageData)
            }
         
+        cell.setFavorite(tweetArray[indexPath.row]["favorited"] as! Bool)
+        cell.tweetid = (tweetArray[indexPath.row]["id"] as! Int)
+        cell.setRetweeted(tweetArray[indexPath.row]["retweeted"] as! Bool)
         
         return cell
     }
     
     @objc func loadTweet(){
-        
-        numberOfTweet = 20
-        
+
         let myURL = "https://api.twitter.com/1.1/statuses/home_timeline.json"
         let myParams = ["count": numberOfTweet]
         
@@ -74,16 +83,16 @@ class HomeTableTableViewController: UITableViewController {
             }
             
             self.tableView.reloadData()
+            self.myRefreshControl.endRefreshing()
             
         }, failure: { Error in
             print("Error")
         })
-   
     }
     
     func loadMoreTweet(){
-        let myURL = "https://api.twitter.com/1.1/statuses/home_timeline.json"
         numberOfTweet = numberOfTweet + 20
+        let myURL = "https://api.twitter.com/1.1/statuses/home_timeline.json"
         let myParams = ["count": numberOfTweet]
         
         TwitterAPICaller.client?.getDictionariesRequest(url: myURL, parameters: myParams, success: { (tweets: [NSDictionary]) in

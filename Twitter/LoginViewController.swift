@@ -13,13 +13,11 @@ class LoginViewController: UIViewController {
 
         if UserDefaults.standard.bool(forKey: "userLoggedIn") == true{
             self.performSegue(withIdentifier: "loginToHome", sender: self)
-  
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     
